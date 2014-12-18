@@ -58,6 +58,7 @@ int main(int argc, char ** argv)
 
     if(argc > 1){
         vector<string> files = Support::pathVector(argv[1]);
+        sort(files.begin(), files.end());
 
         for(uint i = 0; i < files.size(); ++i){
             cout << files[i] << endl;
@@ -67,6 +68,7 @@ int main(int argc, char ** argv)
                 namedWindow(WIN_NAME, WINDOW_AUTOSIZE);
 
                 RGB.setImage(img);
+                RGB.setHSV();
                 RGB.applyFilters();
 
                 createTrackbar(R_low.getName(), WIN_NAME, RGB.r.tb1.getRefValue(), Trackbar::SLIDER_MAX, on_A_low, &RGB);
@@ -78,7 +80,8 @@ int main(int argc, char ** argv)
                 createTrackbar(B_low.getName(), WIN_NAME, RGB.b.tb1.getRefValue(), Trackbar::SLIDER_MAX, on_A_low, &RGB);
                 createTrackbar(B_high.getName(), WIN_NAME, RGB.b.tb2.getRefValue(), Trackbar::SLIDER_MAX, on_A_low, &RGB);
                 imshow(WIN_NAME,RGB.getImage());
-                imshow("original",RGB.getOriginalImage());
+                imshow("original",RGB.getRGBImage());
+                imshow("hsv",RGB.getOriginalImage());
             }
             cvSupport::indexBrowser(i,files.size());
         }

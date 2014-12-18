@@ -7,6 +7,7 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 using namespace std;
 using namespace cv;
@@ -61,10 +62,13 @@ public:
     TrackBars(TrackBarPair &R, TrackBarPair &G,TrackBarPair &B);
 
     void setImage(Mat &img);
+
+    void setHSV();
     Mat applyFilters();
 
     Mat getOriginalImage();
     Mat getImage();
+    Mat getRGBImage();
 
     TrackBarPair r;
     TrackBarPair g;
@@ -72,6 +76,7 @@ public:
 private:
     Mat img_orig;
     Mat img_tmp;
+    Mat img_rgb;
 };
 
 #endif // TRACKBAR_H

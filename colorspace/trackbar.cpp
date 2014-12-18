@@ -80,7 +80,12 @@ TrackBars::TrackBars(TrackBarPair &R, TrackBarPair &G, TrackBarPair &B){
 
 void TrackBars::setImage(Mat &img){
     this->img_orig = img;
+    this->img_orig.copyTo(img_rgb);
     this->img_orig.copyTo(img_tmp);
+}
+
+void TrackBars::setHSV(){
+    cvtColor(img_orig,img_orig,CV_BGR2HSV_FULL);
 }
 
 Mat TrackBars::applyFilters(){
@@ -93,6 +98,10 @@ Mat TrackBars::applyFilters(){
                            r.getHighValue()),
                 img_tmp);
     return img_tmp;
+}
+
+Mat TrackBars::getRGBImage(){
+    return this->img_rgb;
 }
 
 Mat TrackBars::getImage(){
